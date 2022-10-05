@@ -33,7 +33,7 @@ def create_app(test_config=None):
     @TODO: Set up CORS. Allow '*' for origins. Delete the sample route after completing the TODOs
     """
     CORS(app)
-    CORS(app, resources={r"/api/*": {"origins": "*"}})
+    # CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 
     #CORS Headers
@@ -108,10 +108,9 @@ def create_app(test_config=None):
                 'total_questions': totalQuiz,
                 'categories': cat_dictionary
             })
-        except:
-            db.session.rollback()
-            print(sys.exc_info())
-            abort(422)
+        except Exception as e:
+            print(e)
+            abort(400)
         finally:
             db.session.close() 
     
